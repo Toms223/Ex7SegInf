@@ -31,7 +31,7 @@ public class CertificateVerifier {
             if(!verifyCertificate(certificate, cf)) throw new CertificateException("Certificate verification failed");
             return certificate.getPublicKey();
         } catch (CertificateException e) {
-            System.err.println("Certificate verification failed");
+            System.err.println(e.getMessage());
             return null;
         }
     }
@@ -54,6 +54,7 @@ public class CertificateVerifier {
             CertPathValidator certPathValidator = CertPathValidator.getInstance("PKIX");
             certPathValidator.validate(certPath, params);
         } catch (CertificateException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | CertPathValidatorException e) {
+            System.err.println(e.getMessage());
             return false;
         }
         return true;
